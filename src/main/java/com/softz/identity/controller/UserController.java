@@ -1,8 +1,8 @@
 package com.softz.identity.controller;
 
+import com.softz.identity.dto.ApiResponse;
 import com.softz.identity.dto.UserDto;
 import com.softz.identity.dto.request.NewUserRequest;
-import com.softz.identity.entity.User;
 import com.softz.identity.service.UserService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
@@ -18,22 +18,25 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    UserDto createUser(@RequestBody NewUserRequest user) {
-        return userService.createUser(user);
+    public ApiResponse<UserDto> createUser(@RequestBody NewUserRequest newUserRequest) {
+        var userDto = userService.createUser(newUserRequest);
+        return ApiResponse.<UserDto>builder()
+                .result(userDto)
+                .build();
     }
 
     @GetMapping("/users")
-    List<UserDto> getUser() {
-        return userService.getUsers();
+    ApiResponse<List<UserDto>> getUser() {
+        return ApiResponse.<List<UserDto>>builder().result(userService.getUsers()).build();
     }
 
     @GetMapping("/user/{userId}")
-    UserDto getUserById(@PathVariable String userId) {
-        return userService.getUserById(userId);
+    ApiResponse<UserDto> getUserById(@PathVariable String userId) {
+        return ApiResponse.<UserDto>builder().result(userService.getUserById(userId)).build();
     }
 
     @GetMapping("/user/filter")
-    UserDto getUserByUsername(@PathParam("username") String username) {
-        return userService.getUserByUserName(username);
+    ApiResponse<UserDto> getUserByUsername(@PathParam("username") String username) {
+        return ApiResponse.<UserDto>builder().result(userService.getUserByUserName(username)).build();
     }
 }
