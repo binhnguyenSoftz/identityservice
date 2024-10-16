@@ -14,6 +14,9 @@ public enum ErrorCode {
     USER_EXISTED(409100, "User existed", HttpStatus.CONFLICT),
     USER_ID_NOT_FOUND(409101, "User id {0} not found", HttpStatus.BAD_REQUEST),
 
+    PERMISSION_EXIST(410100, "Permission existed", HttpStatus.CONFLICT),
+    PERMISSION_NOT_FOUND(410101, "Permission {0} not found", HttpStatus.BAD_REQUEST),
+
     MISSING_MESSAGE_KEY(100101, "Invalid message", HttpStatus.BAD_REQUEST),
     INVALID_USERNAME(100100, "Username's length must be betweens {min} and {max}", HttpStatus.BAD_REQUEST),
     INVALID_DATE_OF_BIRTH(100102, "User's age must be equal or greater than {min}", HttpStatus.BAD_REQUEST);
