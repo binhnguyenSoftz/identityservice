@@ -4,6 +4,7 @@ import com.softz.identity.dto.ApiResponse;
 import com.softz.identity.dto.UserDto;
 import com.softz.identity.dto.request.NewUserRequest;
 import com.softz.identity.service.UserService;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ApiResponse<UserDto> createUser(@RequestBody NewUserRequest newUserRequest) {
+    public ApiResponse<UserDto> createUser(@RequestBody @Valid NewUserRequest newUserRequest) {
         var userDto = userService.createUser(newUserRequest);
         return ApiResponse.<UserDto>builder()
                 .result(userDto)

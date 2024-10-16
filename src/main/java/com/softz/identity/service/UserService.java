@@ -41,7 +41,7 @@ public class UserService {
 
     public UserDto getUserById(String id) {
         return userMapper.toUserDto(userRepository.findById(id).orElseThrow(
-                () -> new AppException(ErrorCode.USER_NOT_FOUND)));
+                () -> new AppException(ErrorCode.USER_ID_NOT_FOUND, id)));
     }
 
     public UserDto getUserByUserName(String userName) {
