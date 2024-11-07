@@ -9,6 +9,7 @@ import com.softz.identity.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class UserService {
                         () -> new AppException(ErrorCode.USER_NOT_FOUND));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserDto> getUsers() {
         var list = userRepository.findAll();
 

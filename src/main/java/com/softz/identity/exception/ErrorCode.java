@@ -11,6 +11,7 @@ public enum ErrorCode {
     INVALID_INPUT(9000, "Invalid input",
             HttpStatus.BAD_REQUEST),
     UNAUTHENTICATED(9401, "Unauthenticated", HttpStatus.UNAUTHORIZED),
+    UNAUTHORIZED(9403, "Unauthorized", HttpStatus.FORBIDDEN),
     USER_NOT_FOUND(404100, "User not found", HttpStatus.NOT_FOUND),
     USER_EXISTED(409101, "User existed", HttpStatus.CONFLICT),
     USER_ID_NOT_FOUND(404102, "User id %s not found", HttpStatus.NOT_FOUND),

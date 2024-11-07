@@ -11,6 +11,7 @@ import com.softz.identity.repository.PermissionRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class PermissionService {
     PermissionRepository permissionRepository;
     PermissionMapper permissionMapper;
 
+    @PreAuthorize("hasRole('ADMIN')")
     public PermissionDto createPermission(NewPermissionRequest request) {
         Permission permission = permissionMapper.toPermission(request);
         permission = permissionRepository.save(permission);
@@ -29,6 +31,7 @@ public class PermissionService {
         return permissionMapper.toPermissionDto(permission);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public List<PermissionDto> getPermissions() {
         return permissionRepository.findAll()
                 .stream()
@@ -36,6 +39,7 @@ public class PermissionService {
                 .toList();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public PermissionDto updatePermission(int id, UpdatePermissionRequest request) {
         var permission = permissionRepository.findById(id).orElseThrow(
                 () -> new AppException(ErrorCode.PERMISSION_NOT_FOUND));
@@ -45,10 +49,12 @@ public class PermissionService {
         return permissionMapper.toPermissionDto(permissionRepository.save(permission));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public void deletePermission(int id) {
         permissionRepository.deleteById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Permission> getPermissions(List<Integer> permissions) {
         return permissionRepository.findByIdIn(permissions);
     }

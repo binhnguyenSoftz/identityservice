@@ -12,6 +12,7 @@ import com.softz.identity.service.RoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,6 +28,7 @@ public class RoleCoordinatorService {
     RoleService roleService;
     RoleMapper roleMapper;
 
+    @PreAuthorize("hasRole('ADMIN')")
     public RoleDto createRole(NewRoleRequest request) {
         List<Integer> idList = request.getPermissions();
         List<Permission> permissions = permissionService.getPermissions(
